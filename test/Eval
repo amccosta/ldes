@@ -1,0 +1,5 @@
+#!/bin/csh
+set f=$1
+shift
+set out=`../cfparser $f 0 $*`
+echo $out[5] > eval.out

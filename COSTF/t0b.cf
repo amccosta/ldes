@@ -1,0 +1,6 @@
+tx=-1.5
+ty=-1.5
+tz=0.8
+ltv=[(tx-x1,ty-x2,tz-x3)]
+IF (angle[ltv,(x4,x5,x6)] < radian(20)) RETURN HUGE
+RETURN importance("t0",x1,x2,x3,x4,x5,x6,80)

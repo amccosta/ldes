@@ -1,0 +1,9 @@
+/* $Id: user.c,v 17.19 1999/02/16 01:25:08 ingber Exp ingber $ */
+
+start:time: 0h 0m 0s; incr: 0h 0m 0s
+exit code = 1
+final cost value =  -0.03595517
+parameter	value
+0		         553
+1		         561
+end:time: 0h 0m 0.568035s; incr: 0h 0m 4.33681e-17s

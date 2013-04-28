@@ -1,0 +1,3 @@
+#!/bin/csh
+awk -f box.awk out.txt | cat header.sff - > outp.sff
+qconvex n FN < out.txt | awk -f poly.awk | cat header.sff - > outv.sff

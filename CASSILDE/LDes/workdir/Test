@@ -1,0 +1,3 @@
+#!/bin/csh
+echo "/usr/bin/time ./cfparser0 asa2.cf $* >>&test.log"
+echo "/usr/bin/time ./cfparser asa2n.cf $* >>&testn.log"

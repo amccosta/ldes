@@ -1,0 +1,23 @@
+CC=gcc
+CXX=g++
+CFLAGS=-O6 -mpentium -w
+CXXFLAGS=-O6 -mpentium -w
+LDFLAGS=-s -lm
+LEX=flex -Cfa
+YACC=bison -y -d
+
+OBJS=y.tab.o lex.yy.o main.o radcalcdir2.o data.o \
+sampling/ldmaterial.o sampling/ldmath3d.o sampling/ldobject.o \
+sampling/ldparser.o sampling/ldradparser.o sampling/ldsphere.o \
+sampling/qhsarea.o
+EXEC=cfparser
+LIBS=-Lsampling/qhull -lqhull
+
+$(EXEC): $(OBJS)
+	$(CC) $(LDFLAGS) $(OBJS) -o $(EXEC) $(LIBS)
+
+y.tab.c: #parser.y func.c defs.h
+	$(YACC) $<
+
+lex.yy.c: #lexer.l defs.h
+	$(LEX) $<

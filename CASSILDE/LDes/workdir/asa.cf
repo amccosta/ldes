@@ -1,0 +1,7 @@
+imp=importance("test",x1,x2,x3,0,0,0,-1)
+PRINTVAR(x1)
+PRINTVAR(x2)
+PRINTVAR(x3)
+PRINTVAR(imp)
+PRINT('')
+RETURN imp

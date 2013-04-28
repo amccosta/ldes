@@ -1,0 +1,203 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <math.h>
+#ifdef LOG
+#include <sys/times.h>
+#endif
+
+#include "mesh.h"
+
+#define TEMP1 "/tmp/rt.in"
+#define TEMP2 "/tmp/rt.ou"
+#define PNAME "/tmp/rt.%s.pf"
+
+#define ARG1 "rtrace -P %s <%s >%s"
+#define ARG2 "rtrace -P %s -h -fff -ovd -af %s.amb @%s.opt %s.oct <%s >%s"
+
+#define OFFSET 0.001
+
+#define STR_SIZE 256
+
+static int
+find_dirs(float P1,float P2,float P3,float P4,float P5,float P6,float P7,
+          char *P8)
+{
+  float x=P1;
+  float y=P2;
+  float z=P3;
+  float vx=-P4;
+  float vy=-P5;
+  float vz=-P6;
+  float d=cos(P7/180*M_PI);
+  float l=sqrt(vx*vx+vy*vy+vz*vz);
+  char ck=0;
+  FILE *ou;
+  int i,n=0;
+
+  if (l>0.000001)
+  {
+    ck=1;
+    vx=vx/l;
+    vy=vy/l;
+    vz=vz/l;
+  }
+
+  ou=fopen(P8,"w");
+  for (i=0; i<MESH_SIZE; i++)
+  {
+    float X=mesh_point[i].x;
+    float Y=mesh_point[i].y;
+    float Z=mesh_point[i].z;
+
+    if (ck && vx*X+vy*Y+vz*Z>d)
+    {
+      float data[6];
+      float dx=OFFSET*X;
+      float dy=OFFSET*Y;
+      float dz=OFFSET*Z;
+      data[0]=x+dx;
+      data[1]=y+dy;
+      data[2]=z+dz;
+      data[3]=-dx;
+      data[4]=-dy;
+      data[5]=-dz;
+      fwrite(data,sizeof(float),6,ou);
+      n++;
+    }
+  }
+  if (ou) fclose(ou);
+  return n;
+}
+
+static float
+find_val(float P1,float P2,float P3,float P4,char *P5)
+{
+  float x=P1;
+  float y=P2;
+  float z=P3;
+  float d=0;
+  float l=sqrt(x*x+y*y+z*z);
+  float t=0;
+  float w=0;
+  float n=0;
+  float data[6];
+  FILE *in;
+
+  if (l>0.000001)
+  {
+    x=x/l;
+    y=y/l;
+    z=z/l;
+  }
+
+  if (P4>0) d=cos(P4/180*M_PI);
+
+  in=fopen(P5,"r");
+  while (in && fread(data,sizeof(float),6,in)==6)
+  {
+    float dt=1;
+    if (P4>0) dt=x*data[3]+y*data[4]+z*data[5];
+    if (P4<0 || dt>d)
+    {
+      float v=0.265*data[0]+0.670*data[1]+0.065*data[2];
+      t+=v*dt;
+      w+=dt;
+      n++;
+    }
+  }
+  if (in) fclose(in);
+
+  if (n>0) return t/w;
+  return 0;
+}
+
+static char pfil[STR_SIZE];
+
+static void
+gen_command(char *P1,char *P2)
+{
+  sprintf(pfil,PNAME,P1);
+  if (access(pfil,R_OK)==0)
+    sprintf(P2,ARG1,pfil,TEMP1,TEMP2);
+  else
+    sprintf(P2,ARG2,pfil,P1,P1,P1,TEMP1,TEMP2);
+}
+
+float
+radcalcdir(char *P1,float P2,float P3,float P4,
+           float P5,float P6,float P7,float P8)
+{
+  char command[4*STR_SIZE];
+  int i;
+  float val;
+#ifdef LOG
+  clock_t t0;
+  float dt;
+#endif
+
+#ifdef LOG
+  t0=times(0);
+#endif
+  i=find_dirs(P2,P3,P4,P5,P6,P7,P8,TEMP1);
+#ifdef LOG
+  dt=times(0)-t0;
+  if (dt==0) dt=1;
+  dt=dt/CLOCKS_PER_SEC;
+  printf("setup: %s %g\n",P1,dt);
+#endif
+  gen_command(P1,command);
+#ifdef LOG
+  t0=times(0);
+#endif
+  system(command);
+#ifdef LOG
+  dt=times(0)-t0;
+  if (dt==0) dt=1;
+  dt=dt/CLOCKS_PER_SEC;
+  printf("rtrace: %s %g %d\n",P1,dt,i);
+#endif
+  
+#ifdef LOG
+  t0=times(0);
+#endif
+  val=find_val(P5,P6,P7,P8,TEMP2);
+#ifdef LOG
+  dt=times(0)-t0;
+  if (dt==0) dt=1;
+  dt=dt/CLOCKS_PER_SEC;
+  printf("calc: %s %g\n",P1,dt);
+#endif
+  return val;
+}
+
+#ifdef TESTDIR
+int
+main(int argc,char *argv[])
+{
+  char P1[32];
+  float P2,P3,P4,P5,P6,P7,P8;
+
+  if (argc==8)
+  {
+    P2=atof(argv[2]);
+    P3=atof(argv[3]);
+    P4=atof(argv[4]);
+    P5=atof(argv[5]);
+    P6=atof(argv[6]);
+    P7=atof(argv[7]);
+    P8=atof(argv[8]);
+    fprintf(stderr,"s %g %g %g %g %g %g %g: %g\n",
+      argv[1],P2,P3,P4,P5,P6,P7,P8,radcalcdir(argv[1],P2,P3,P4,P5,P6,P7,P8));
+    return 0;
+  }
+  do {
+    if (scanf("%s %f %f %f %f %f %f %f",P1,&P2,&P3,&P4,&P5,&P6,&P7,&P8)!=8)
+      break;
+    fprintf(stderr,"%s %g %g %g %g %g %g %g: %g\n",
+      P1,P2,P3,P4,P5,P6,P7,P8,radcalcdir(P1,P2,P3,P4,P5,P6,P7,P8));
+  } while (strcmp(P1,"-"));
+  return 0;
+}
+#endif

@@ -1,0 +1,18 @@
+# (x1, x2, x3), (x6, x7, x8); (x4, x5), (x9, x10)
+il1x = -1.5; il1y = -1.5; il1z = 0.8
+il2x = 1.5; il2y = 1.5; il2z = 0.8
+v = [(x1 - il1x,x2 - il1y,x3 - il1z)]
+IF (angle[v,dir[(x4,x5,0)]] < radian(45)) RETURN HUGE
+v = [(x6 - il1x,x7 - il1y,x8 - il1z)]
+IF (angle[v,dir[(x9,x10,0)]] < radian(45)) RETURN HUGE
+v = [(x1 - il2x,x2 - il2y,x3 - il2z)]
+IF (angle[v,dir[(x4,x5,0)]] < radian(45)) RETURN HUGE
+v = [(x6 - il2x,x7 - il2y,x8 - il2z)]
+IF (angle[v,dir[(x9,x10,0)]] < radian(45)) RETURN HUGE
+wIL1DL1 = urandom(0,1)
+wIL2DL1 = urandom(0,1)
+wIL1DL2 = urandom(0,1)
+wIL2DL2 = urandom(0,1)
+dif1 = abs(wIL1DL1 - wIL1DL2)
+dif2 = abs(wIL2DL1 - wIL2DL2)
+RETURN dif1 * dif2

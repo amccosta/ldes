@@ -1,0 +1,180 @@
+		ADAPTIVE SIMULATED ANNEALING
+
+/* $Id: asa.c,v 17.19 1999/02/16 01:25:11 ingber Exp ingber $ */
+
+OPTIONS_FILE = 1
+OPTIONS_FILE_DATA = 1
+RECUR_OPTIONS_FILE = 0
+RECUR_OPTIONS_FILE_DATA = 0
+COST_FILE = 1
+ASA_LIB = 0
+HAVE_ANSI = 1
+IO_PROTOTYPES = 0
+TIME_CALC = 1
+TIME_STD = 0
+TIME_GETRUSAGE = 1
+INT_LONG = 1
+INT_ALLOC = 0
+SMALL_FLOAT =        1e-18
+MIN_DOUBLE =        1e-18
+MAX_DOUBLE =        1e+18
+EPS_DOUBLE =        1e-18
+CHECK_EXPONENT = 0
+NO_PARAM_TEMP_TEST = 0
+NO_COST_TEMP_TEST = 0
+SELF_OPTIMIZE = 0
+ASA_TEST = 0
+ASA_TEST_POINT = 0
+ASA_TEMPLATE = 0
+MY_TEMPLATE = 1
+ASA_TEMPLATE_LIB = 0
+ASA_TEMPLATE_ASA_OUT_PID = 0
+ASA_TEMPLATE_MULTIPLE = 0
+ASA_TEMPLATE_SELFOPT = 0
+ASA_TEMPLATE_SAMPLE = 0
+ASA_TEMPLATE_QUEUE = 0
+ASA_TEMPLATE_PARALLEL = 0
+ASA_TEMPLATE_SAVE = 0
+USER_INITIAL_COST_TEMP = 0
+RATIO_TEMPERATURE_SCALES = 0
+USER_INITIAL_PARAMETERS_TEMPS = 0
+DELTA_PARAMETERS = 0
+QUENCH_PARAMETERS = 1
+QUENCH_COST = 1
+QUENCH_PARAMETERS_SCALE = 1
+QUENCH_COST_SCALE = 1
+OPTIONAL_DATA = 0
+OPTIONAL_DATA_INT = 0
+USER_COST_SCHEDULE = 0
+USER_ACCEPT_ASYMP_EXP = 0
+USER_ACCEPTANCE_TEST = 0
+USER_GENERATING_FUNCTION = 0
+USER_REANNEAL_COST = 0
+USER_REANNEAL_PARAMETERS = 0
+MAXIMUM_REANNEAL_INDEX = 50000
+REANNEAL_SCALE =           10
+ASA_SAMPLE = 0
+ASA_QUEUE = 0
+ASA_RESOLUTION = 0
+FITLOC = 0
+FITLOC_ROUND = 1
+FITLOC_PRINT = 1
+MULTI_MIN = 0
+MULTI_NUMBER = 2
+ASA_PARALLEL = 0
+ASA_SAVE = 0
+SYSTEM_CALL = 1
+FDLIBM_POW = 0
+FDLIBM_LOG = 0
+FDLIBM_EXP = 0
+
+ASA_PRINT = 1
+USER_OUT = user.out
+ASA_OUT = asa.out
+USER_ASA_OUT = 0
+ASA_PRINT_INTERMED = 1
+ASA_PRINT_MORE = 0
+G_FIELD = 12
+G_PRECISION = 7
+
+OPTIONS->Limit_Acceptances = 5000
+OPTIONS->Limit_Generated = 20000
+OPTIONS->Limit_Invalid_Generated_States = 1000
+OPTIONS->Accepted_To_Generated_Ratio =       0.0001
+
+OPTIONS->Cost_Precision =       0.0001
+OPTIONS->Maximum_Cost_Repeat = 5
+OPTIONS->Number_Cost_Samples = 10
+OPTIONS->Temperature_Ratio_Scale =        0.001
+OPTIONS->Cost_Parameter_Scale_Ratio =            1
+OPTIONS->Temperature_Anneal_Scale =          100
+OPTIONS->Include_Integer_Parameters = 0
+OPTIONS->User_Initial_Parameters = 0
+OPTIONS->Sequential_Parameters = -1
+OPTIONS->Initial_Parameter_Temperature =            1
+OPTIONS->Acceptance_Frequency_Modulus = 1000
+OPTIONS->Generated_Frequency_Modulus = 20000
+OPTIONS->Reanneal_Cost = 1
+OPTIONS->Reanneal_Parameters = 1
+
+OPTIONS->Delta_X =        0.001
+OPTIONS->User_Tangents = 0
+OPTIONS->Curvature_0 = 0
+
+
+start_asa:time: 0h 0m 0s; incr: 0h 0m 0s
+Initial Random Seed = 38576
+
+*number_parameters = 2
+
+index_v parameter_minimum parameter_maximum parameter_value parameter_type 
+ 0        100          		 1400         	 750          1      
+ 1        100          		 900          	 500          1      
+
+
+OPTIONS->User_Quench_Param_Scale[0] =            2
+OPTIONS->User_Quench_Param_Scale[1] =            2
+
+OPTIONS->User_Quench_Cost_Scale =            1
+
+temperature_scale =    0.6907755
+temperature_scale_parameters[0] =   0.06907755
+*temperature_scale_cost =    0.6907755
+
+
+
+:time: 0h 0m 0.012s; incr: 0h 0m 0.012s
+*index_cost_acceptances = 0, *current_cost_temperature = 2.227492e-05
+*accepted_to_generated_ratio =            1, *number_invalid... = 0
+*number_generated = 0, *number_accepted = 0
+best...->cost = -3.269843e-05, last...->cost = -3.269843e-05
+index_v  best...->parameter current_parameter_temp	tangent
+0	         208		           1	           0
+1	         791		           1	           0
+
+
+best...->cost=-3.458314e-05  *number_accepted=1  *number_generated=1
+best...->cost=-4.541774e-05  *number_accepted=2  *number_generated=2
+best...->cost=-5.684143e-05  *number_accepted=6  *number_generated=11
+best...->cost=-6.035447e-05  *number_accepted=7  *number_generated=14
+best...->cost=-6.316993e-05  *number_accepted=8  *number_generated=17
+best...->cost=-6.389904e-05  *number_accepted=9  *number_generated=19
+best...->cost=-6.544717e-05  *number_accepted=10  *number_generated=20
+best...->cost=-0.002959271  *number_accepted=14  *number_generated=53
+best...->cost=-0.03306483   *number_accepted=15  *number_generated=55
+best...->cost=-0.03402678   *number_accepted=16  *number_generated=67
+best...->cost=-0.03595408   *number_accepted=17  *number_generated=83
+best...->cost=-0.03595416   *number_accepted=23  *number_generated=132
+best...->cost=-0.03595439   *number_accepted=24  *number_generated=134
+best...->cost=-0.03595454   *number_accepted=28  *number_generated=146
+best...->cost=-0.0359549    *number_accepted=44  *number_generated=186
+best...->cost=-0.03595513   *number_accepted=45  *number_generated=187
+best...->cost=-0.03595516   *number_accepted=58  *number_generated=230
+best...->cost=-0.03595517   *number_accepted=145  *number_generated=389
+
+:time: 0h 0m 0.568035s; incr: 0h 0m 0.556035s
+*index_cost_acceptances = 262, *current_cost_temperature = 3.103788e-10
+*accepted_to_generated_ratio =    0.5566038, *number_invalid... = 0
+*number_generated = 600, *number_accepted = 262
+best...->cost =  -0.03595517, last...->cost =  -0.03595517
+index_v  best...->parameter current_parameter_temp	tangent
+0	         553		9.332543e-19	           0
+1	         561		       1e-18	           0
+
+curvature[0][0] =            0
+
+curvature[1][0] =            0 	 = curvature[0][1]
+curvature[1][1] =            0
+
+
+
+ P_TEMP_TOO_SMALL exit_status = 1
+current_user_parameter_temp[0] too small = 9.332543e-19
+ Locate_Cost = 5, calculating curvatures while exiting asa ()
+final_cost = best_generated_state->cost = -0.03595517 
+*number_accepted at best_generated_state->cost = 145
+*number_generated at best_generated_state->cost = 389
+asa_end:time: 0h 0m 0.568035s; incr: 0h 0m 4.33681e-17s
+
+
+

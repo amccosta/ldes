@@ -1,0 +1,15 @@
+/* $Id: test_usr,v 17.19 1999/02/16 01:25:06 ingber Exp ingber $ */
+
+CC = gcc
+	-g
+	-O
+	-Wall
+	-DASA_TEST=TRUE
+
+exit code = 2
+final cost value =            0
+parameter	value
+0		 0.007622974
+1		  0.03366254
+2		  0.03323326
+3		  0.03975698

@@ -1,0 +1,6 @@
+# (x1, x2, x3)
+PointA = [(4,3,0)]
+IF (distance[(x1,x2,0),PointA] < 1) RETURN HUGE
+PointB = [(3,3,1.7)]
+wIL1 = urandom(0,1)
+RETURN wIL1 * distance[(x1,x2,x3),PointB]

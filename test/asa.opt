@@ -1,0 +1,43 @@
+Limit_Acceptances                          5000 
+Limit_Generated                            20000 
+Limit_Invalid_Generated_States             1000 
+Accepted_To_Generated_Ratio                0.0001 
+
+Cost_Precision                             0.0001 
+Maximum_Cost_Repeat                        5 
+Number_Cost_Samples                        10 
+Temperature_Ratio_Scale                    0.001 
+Cost_Parameter_Scale_Ratio                 1 
+Temperature_Anneal_Scale                   100 
+
+Include_Integer_Parameters                 0 
+User_Initial_Parameters                    0 
+Sequential_Parameters                     -1 
+Initial_Parameter_Temperature              1 
+
+Acceptance_Frequency_Modulus               1000 
+Generated_Frequency_Modulus                20000 
+Reanneal_Cost                              1 
+Reanneal_Parameters                        1 
+
+Delta_X                                    0.001 
+User_Tangents                              0 
+Curvature_0                                0 
+
+___Define_below_if_OPTIONS_FILE_DATA=TRUE
+
+number_parameters=*parameter_dimension     2 
+
+Param#:Minimum:Maximum:InitialValue:IntegerorReal
+ 0             100            1400           750            1 
+ 1             100            900            500            1 
+
+___Define_below_if_QUENCH_COST_and_OPTIONS_FILE_DATA=TRUE
+
+User_Quench_Cost_Scale[0]=1.0              1 
+
+___Define_below_if_QUENCH_PARAMETERS_and_QUENCH_COST_and_OPTIONS_FILE_DATA=TRUE
+
+Param#:User_Quench_Param_Scale
+ 0             2 
+ 1             2 
